@@ -1,0 +1,6 @@
+# npm 필요한거
+
+1. npm i styled-components
+2. npm i react-router-dom
+3. npm i axios
+4. npm i react-redux
