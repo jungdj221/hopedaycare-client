@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { viewAllPatient } from "../../api/User";
 import Alert from "../Alert";
+import Loading from "../Loading";
 const Div = styled.div`
   .contents-container {
     table {
@@ -34,14 +35,18 @@ const Div = styled.div`
 `;
 const Patient = () => {
   const [patientList, setPatientList] = useState([]);
-  const [alertState, setAlertState] = useState("");
+  const [alertState, setAlertState] = useState(""); // alert state
+  const [loading, setLoading] = useState(false); // loading component popup
 
   const patientAPI = async () => {
     try {
+      setLoading(true); // loading
       const response = await viewAllPatient();
       setPatientList(response.data);
+      setLoading(false); // loading
     } catch {
-      setAlertState("network-error");
+      setAlertState("network-error"); // alert state
+      setLoading(false); // loading
     }
   };
 
@@ -58,9 +63,7 @@ const Patient = () => {
   }, [patientList]);
   return (
     <Div>
-      <div className="alert-container">
-        <Alert alertType={alertState} />
-      </div>
+      <Alert alertType={alertState} />
       <div className="contents-container">
         <table>
           <thead>
@@ -89,6 +92,21 @@ const Patient = () => {
             ))}
           </tbody>
         </table>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            {patientList.length === 0 ? (
+              <>
+                <div>
+                  환자정보를 불러올 수 없습니다. 잠시 후, 다시 시도해주세요.
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
       </div>
     </Div>
   );

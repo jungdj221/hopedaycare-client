@@ -5,6 +5,11 @@ const instance = axios.create({
   baseURL: "http://localhost:8080/api/bus/",
 });
 
+// 버스 리스트 - list
+export const viewAllBus = async () => {
+  return await instance.get("bus-info");
+};
+
 // 버스 정보 추가 - vo
 export const createBus = async (data) => {
   return await instance.post("bus-info", data);

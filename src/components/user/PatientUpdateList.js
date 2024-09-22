@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { viewAllPatient, updatePatient } from "../../api/User";
+import Alert from "../Alert";
+import Loading from "../Loading";
 const Div = styled.div`
   .contents-container {
     table {
@@ -36,13 +38,16 @@ const Patient = () => {
   const [patientList, setPatientList] = useState([]);
   const [boolean, setBoolean] = useState(false);
   const [editPatient, setEditPatient] = useState({});
+  const [alertState, setAlertState] = useState("");
+  const [loading, setLoading] = useState(false); // loading component popup
 
   const updatePatientInfo = async (data) => {
     try {
       await updatePatient(data);
     } catch {
-      alert("뭔가 잘못되었어요");
+      setAlertState("error");
     }
+    setAlertState("update-success");
     patientAPI();
   };
   const cancelUpdate = () => {
@@ -50,9 +55,15 @@ const Patient = () => {
   };
 
   const patientAPI = async () => {
-    const response = await viewAllPatient();
-    setPatientList(response.data);
-    console.log(response.data);
+    try {
+      setLoading(true); // loading
+      const response = await viewAllPatient();
+      setPatientList(response.data);
+      setLoading(false); // loading
+    } catch {
+      setAlertState("network-error");
+      setLoading(false); // loading
+    }
   };
 
   // only for first rendering
@@ -64,6 +75,7 @@ const Patient = () => {
   }, [patientList]);
   return (
     <Div>
+      <Alert alertType={alertState} />
       <div className="contents-container">
         <table>
           <thead>
@@ -169,6 +181,21 @@ const Patient = () => {
             ))}
           </tbody>
         </table>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            {patientList.length === 0 ? (
+              <>
+                <div>
+                  환자정보를 불러올 수 없습니다. 잠시 후, 다시 시도해주세요.
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
       </div>
     </Div>
   );

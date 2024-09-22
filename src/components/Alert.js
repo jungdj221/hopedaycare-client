@@ -4,14 +4,38 @@ import { CiWarning, CiCircleCheck } from "react-icons/ci"; // warning yellow , c
 import { VscError } from "react-icons/vsc"; // fail red
 import { useEffect, useState } from "react";
 const Div = styled.div`
+  @keyframes fadeOut {
+    0% {
+      top: -70px;
+      opacity: 1;
+    }
+    5% {
+      top: 5px;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  .fade-out {
+    animation: fadeOut 5s ease-in;
+    top: 5px;
+  }
   .state-container {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 20px;
     width: 500px;
     height: 70px;
+    overflow: hidden;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
     .contents-container {
       display: flex;
       justify-content: flex-start;
@@ -32,8 +56,15 @@ const Div = styled.div`
       }
     }
   }
+  /* .state-container::before {
+    content: "";
+    width: 7px;
+    height: 70px;
+    background-color: red;
+  } */
   .error {
     border: 2px solid red;
+    border-left: 7px solid red;
     .icon {
       color: red;
     }
@@ -69,7 +100,11 @@ const Alert = ({ alertType }) => {
     sort: "",
   });
   const [boolean, setBoolean] = useState(false);
-
+  if (boolean) {
+    setTimeout(() => {
+      setBoolean(false);
+    }, 4900);
+  }
   useEffect(() => {
     switch (newData) {
       case "info":
@@ -153,7 +188,7 @@ const Alert = ({ alertType }) => {
         <>
           <Div>
             <div
-              className={`state-container ${
+              className={`state-container fade-out ${
                 alert.sort === "info"
                   ? "info"
                   : alert.sort === "success"
