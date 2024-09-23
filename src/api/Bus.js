@@ -2,7 +2,7 @@ import axios from "axios";
 
 // bus 기본루트
 const instance = axios.create({
-  baseURL: "http://localhost:8080/api/bus/",
+  baseURL: "http://localhost:8080/carecenter/api/bus/",
 });
 
 // 버스 리스트 - list

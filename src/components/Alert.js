@@ -103,6 +103,12 @@ const Alert = ({ alertType }) => {
   if (boolean) {
     setTimeout(() => {
       setBoolean(false);
+      setAlert({
+        title: "",
+        message: "",
+        type: "",
+        sort: "",
+      });
     }, 4900);
   }
   useEffect(() => {

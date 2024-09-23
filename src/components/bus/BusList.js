@@ -3,7 +3,36 @@ import styled from "styled-components";
 import { viewAllBus } from "../../api/Bus";
 import Loading from "../Loading";
 import Alert from "../Alert";
-const Div = styled.div``;
+const Div = styled.div`
+  .contents-container {
+    table {
+      th,
+      td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px;
+      }
+      tr {
+        border-bottom: 1px solid lightgrey;
+      }
+      .hover-effect:hover {
+        background-color: #f4f4f4;
+      }
+      /* .disable {
+        color: lightgrey;
+      } */
+      /* .updateInfo {
+        button {
+          color: black !important;
+          background-color: #f4f4f4;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      } */
+    }
+  }
+`;
 const BusList = () => {
   const [busList, setBusList] = useState([]);
   const [alertState, setAlertState] = useState(""); // alert state
@@ -29,7 +58,7 @@ const BusList = () => {
   return (
     <Div>
       <Alert alertType={alertState} />
-      <div className="content-container">
+      <div className="contents-container">
         <table>
           <thrad>
             <tr>
