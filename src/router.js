@@ -5,6 +5,7 @@ import Homepage from "./page/Homepage";
 import ScheduleManagement from "./page/ScheduleManagement";
 import UserManagement from "./page/UserManagement";
 import Error from "./page/Error";
+import BusDetail from "./components/bus/BusDetail";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       { path: "user-management", element: <UserManagement /> },
       { path: "bus-management", element: <BusManagement /> },
       { path: "schedule-management", element: <ScheduleManagement /> },
+      {
+        path: "bus-management/bus/busId/:busId",
+        element: <BusDetail />,
+      },
     ],
   },
   {

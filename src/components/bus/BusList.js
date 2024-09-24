@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { viewAllBus } from "../../api/Bus";
 import Loading from "../Loading";
 import Alert from "../Alert";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 const Div = styled.div`
   .contents-container {
     table {
@@ -37,6 +39,10 @@ const BusList = () => {
   const [busList, setBusList] = useState([]);
   const [alertState, setAlertState] = useState(""); // alert state
   const [loading, setLoading] = useState(false); // loading component popup
+  const nevigate = useNavigate();
+  const getDetail = (bus) => {
+    nevigate(`bus/busId/${bus.busId}`);
+  };
 
   const busAPI = async () => {
     try {
@@ -60,7 +66,7 @@ const BusList = () => {
       <Alert alertType={alertState} />
       <div className="contents-container">
         <table>
-          <thrad>
+          <thead>
             <tr>
               <th>번호</th>
               <th>차량 번호</th>
@@ -69,18 +75,24 @@ const BusList = () => {
               <th>차량 대체 운전사</th>
               <th>보조석 도우미</th>
               <th>보조석 대체 도우미</th>
+              <th>
+                <BsThreeDotsVertical />
+              </th>
             </tr>
-          </thrad>
+          </thead>
           <tbody>
             {busList.map((bus, index) => (
               <tr key={index} className="hover-effect">
-                <td>{index}</td>
+                <td>{index + 1}</td>
                 <td>{bus.busNumber}</td>
                 <td>{bus.busVehicleName}</td>
                 <td>{bus.busDriver}</td>
                 <td>{bus.busSubDriver}</td>
                 <td>{bus.busHelper}</td>
                 <td>{bus.busSubHelper}</td>
+                <td>
+                  <button onClick={() => getDetail(bus)}>상세보기</button>
+                </td>
               </tr>
             ))}
           </tbody>

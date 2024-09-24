@@ -83,7 +83,7 @@ const Patient = () => {
                   patient.patientStatus === "N" ? "disable" : ""
                 }`}
               >
-                <td>{index}</td>
+                <td>{index + 1}</td>
                 <td>{patient.patientStatus}</td>
                 <td>{patient.patientName}</td>
                 <td>{patient.patientInfo}</td>

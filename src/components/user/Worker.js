@@ -75,7 +75,7 @@ const Worker = () => {
           <tbody>
             {workerList.map((worker, index) => (
               <tr
-                key={index}
+                key={index + 1}
                 className={`hover-effect ${
                   worker.patientStatus === "N" ? "disable" : ""
                 }`}

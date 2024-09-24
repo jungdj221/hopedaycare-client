@@ -25,6 +25,11 @@ export const deleteBus = async (no) => {
   return await instance.delete(`bus-info/${no}`);
 };
 
+// 버스 detail
+export const getBusDetail = async (no) => {
+  return await instance.get(`bus-info/${no}`);
+};
+
 // ----------------------------
 
 // 탑승객 명단 - list

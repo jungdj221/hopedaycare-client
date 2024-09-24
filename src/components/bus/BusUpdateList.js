@@ -72,7 +72,7 @@ const BusUpdateList = () => {
       <Alert alertType={alertState} />
       <div className="contents-container">
         <table>
-          <thrad>
+          <thead>
             <tr>
               <th>번호</th>
               <th>차량 번호</th>
@@ -85,11 +85,11 @@ const BusUpdateList = () => {
                 <BsThreeDotsVertical />
               </th>
             </tr>
-          </thrad>
+          </thead>
           <tbody>
             {busList.map((bus, index) => (
               <tr key={index} className="hover-effect">
-                <td>{index}</td>
+                <td>{index + 1}</td>
                 {boolean & (editBus.busId === bus.busId) ? (
                   <>
                     <td>
