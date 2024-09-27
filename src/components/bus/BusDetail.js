@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getBusDetail } from "../../api/Bus";
+import { getBusDetail, viewAllPassenger } from "../../api/Bus";
 import { useParams } from "react-router-dom";
 import Alert from "../Alert";
 import Loading from "../Loading";
@@ -25,23 +25,26 @@ const Div = styled.div`
 const BusDetail = () => {
   const { busId } = useParams();
   const [bus, setBus] = useState({});
+  const [passengers, setPassengers] = useState([]);
   const [alertState, setAlertState] = useState(""); // alert state
   const [loading, setLoading] = useState(false);
 
-  const busAPI = async (no) => {
+  const busInfoAPI = async (no) => {
     try {
       setLoading(true);
       const response = await getBusDetail(no);
+      const response02 = await viewAllPassenger(no);
       setBus(response.data);
-      console.log(response.data);
+      setPassengers(response02.data);
     } catch {
       setAlertState("error");
     }
     setLoading(false);
   };
+
   useEffect(() => {
     if (Object.keys(bus).length === 0) {
-      busAPI(busId);
+      busInfoAPI(busId);
     }
     // eslint-disable-next-line
   }, [busId]);
@@ -50,8 +53,14 @@ const BusDetail = () => {
       <Alert alertType={alertState} />
       <div className="contents-container">
         <div className="main-container">
-          <div className="passenger-seats-container">ff</div>
-          <div className="passenger-info-container">ff</div>
+          <div className="right">
+            <div className="add-seat"></div>
+            <div className="passenger-seats-container"></div>
+          </div>
+          <div className="left">
+            <div className="add-info"></div>
+            <div className="passenger-info-container"></div>
+          </div>
         </div>
       </div>
       {loading ? (

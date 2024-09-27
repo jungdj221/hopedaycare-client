@@ -36,6 +36,7 @@ const Div = styled.div`
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+    background-color: white;
     .contents-container {
       display: flex;
       justify-content: flex-start;
@@ -93,6 +94,7 @@ const Div = styled.div`
 `;
 const Alert = ({ alertType }) => {
   let newData = alertType;
+  // const [newData, setNewData] = useState(alertType);
   const [alert, setAlert] = useState({
     title: "",
     message: "",
@@ -109,6 +111,8 @@ const Alert = ({ alertType }) => {
         type: "",
         sort: "",
       });
+      // setNewData("");
+      console.log("이거 작동됨");
     }, 4900);
   }
   useEffect(() => {
@@ -125,7 +129,7 @@ const Alert = ({ alertType }) => {
       case "create-success":
         setAlert({
           title: "추가 성공",
-          message: "성공적으로 추가가 완료되었습니다.",
+          message: "성공적으로 정보추가가 완료되었습니다.",
           type: "success",
           sort: "success",
         });
@@ -167,6 +171,16 @@ const Alert = ({ alertType }) => {
         });
         setBoolean(true);
         break;
+      case "create-error":
+        setAlert({
+          title: "에러 발생",
+          message:
+            "저장과정에서 문제가 발생하였습니다. 잠시후 다시 시도해 주세요",
+          type: "create-error",
+          sort: "error",
+        });
+        setBoolean(true);
+        break;
       case "network-error":
         setAlert({
           title: "네트워크 에러",
@@ -185,6 +199,7 @@ const Alert = ({ alertType }) => {
         });
         setBoolean(false);
     }
+    // console.log("alert 작동확인");
   }, [newData]);
   return (
     <>

@@ -5,6 +5,8 @@ import Loading from "../Loading";
 import Alert from "../Alert";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+// import { FaPlus } from "react-icons/fa";
+import BusAdd from "./BusAdd";
 const Div = styled.div`
   .contents-container {
     table {
@@ -18,20 +20,8 @@ const Div = styled.div`
         border-bottom: 1px solid lightgrey;
       }
       .hover-effect:hover {
-        background-color: #f4f4f4;
+        background-color: #56b4c6;
       }
-      /* .disable {
-        color: lightgrey;
-      } */
-      /* .updateInfo {
-        button {
-          color: black !important;
-          background-color: #f4f4f4;
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      } */
     }
   }
 `;
@@ -64,6 +54,9 @@ const BusList = () => {
   return (
     <Div>
       <Alert alertType={alertState} />
+
+      <BusAdd />
+
       <div className="contents-container">
         <table>
           <thead>

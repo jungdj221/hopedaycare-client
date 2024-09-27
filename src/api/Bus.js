@@ -32,9 +32,9 @@ export const getBusDetail = async (no) => {
 
 // ----------------------------
 
-// 탑승객 명단 - list
-export const viewAllPassenger = async () => {
-  return await instance.get("bus-passenger");
+// 탑승객 명단 - list - int busId
+export const viewAllPassenger = async (no) => {
+  return await instance.get(`bus-passenger${no}`);
 };
 
 // 탑승객 추가 - list
