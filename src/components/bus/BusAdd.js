@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { createBus } from "../../api/Bus";
+import { createBus, createPassengers } from "../../api/Bus";
 import Alert from "../Alert";
 import { FaPlus } from "react-icons/fa";
 const Div = styled.div`
@@ -139,7 +139,7 @@ const Div = styled.div`
     height: 30px;
   }
 `;
-const BusAdd = () => {
+const BusAdd = ({ busAPI }) => {
   const [newBus, setNewBus] = useState({});
   const [alertstate, setAlertState] = useState(""); // alert state
   const [boolean, setBoolean] = useState(""); // open || close component
@@ -147,10 +147,13 @@ const BusAdd = () => {
   const submit = async () => {
     try {
       await createBus(newBus);
+      // await createPassengers(newBus);
       setAlertState("create-success");
     } catch {
       setAlertState("create-error");
     }
+    setBoolean(false);
+    busAPI();
   };
   return (
     <Div>
@@ -168,7 +171,7 @@ const BusAdd = () => {
             <div className="contents-container ">
               <h1>Bus Registration Form</h1>
               <div className="content-container">
-                <label for="busNumber">Vehicle Number</label>
+                <label htmlFor="busNumber">Vehicle Number</label>
                 <input
                   type="text"
                   id="busNumber"
@@ -181,7 +184,7 @@ const BusAdd = () => {
                 />
               </div>
               <div className="content-container">
-                <label for="vehicleName">Vehicle Name</label>
+                <label htmlFor="vehicleName">Vehicle Name</label>
                 <input
                   type="text"
                   id="vehicleName"
@@ -195,34 +198,34 @@ const BusAdd = () => {
               </div>
               <div className="content-container child-with-flex">
                 <div className="content-detail">
-                  <label for="vehicleRow">Vehicle Row</label>
+                  <label htmlFor="vehicleRow">Vehicle Row</label>
                   <input
                     type="text"
                     id="vehicleRow"
                     onChange={(e) =>
                       setNewBus((prev) => ({
                         ...prev,
-                        busVehicleRow: e.target.value,
+                        busRow: e.target.value,
                       }))
                     }
                   />
                 </div>
                 <div className="content-detail">
-                  <label for="vehicleColumn">Vehicle Column</label>
+                  <label htmlFor="vehicleColumn">Vehicle Column</label>
                   <input
                     type="text"
                     id="vehicleColumn"
                     onChange={(e) =>
                       setNewBus((prev) => ({
                         ...prev,
-                        busVehicleColumn: e.target.value,
+                        busColumn: e.target.value,
                       }))
                     }
                   />
                 </div>
               </div>
               <div className="content-container">
-                <label for="driver">Driver</label>
+                <label htmlFor="driver">Driver</label>
                 <input
                   type="text"
                   id="driver"
@@ -235,7 +238,7 @@ const BusAdd = () => {
                 />
               </div>
               <div className="content-container">
-                <label for="subDriver">Sub Driver</label>
+                <label htmlFor="subDriver">Sub Driver</label>
                 <input
                   type="text"
                   id="subDriver"
@@ -248,7 +251,7 @@ const BusAdd = () => {
                 />
               </div>
               <div className="content-container">
-                <label for="assistant">Assistant</label>
+                <label htmlFor="assistant">Assistant</label>
                 <input
                   type="text"
                   id="assistant"
@@ -261,7 +264,7 @@ const BusAdd = () => {
                 />
               </div>
               <div className="content-container">
-                <label for="subAssistant">Sub Assistant</label>
+                <label htmlFor="subAssistant">Sub Assistant</label>
                 <input
                   type="text"
                   id="subAssistant"

@@ -20,7 +20,7 @@ const Div = styled.div`
         border-bottom: 1px solid lightgrey;
       }
       .hover-effect:hover {
-        background-color: #56b4c6;
+        background-color: #f4f4f4;
       }
     }
   }
@@ -55,7 +55,7 @@ const BusList = () => {
     <Div>
       <Alert alertType={alertState} />
 
-      <BusAdd />
+      <BusAdd busAPI={() => busAPI()} />
 
       <div className="contents-container">
         <table>
